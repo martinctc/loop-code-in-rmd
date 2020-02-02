@@ -1,0 +1,81 @@
+---
+title: "Loop code chunks in RMarkdown"
+author: "Martin Chan"
+date: "02/02/2020"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+<style>                     
+.navbar {
+  background-color:#363636;
+  
+}
+</style>   
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
+# Create DT function
+create_dt <- function(x){
+  DT::datatable(x,extensions = 'Buttons',
+                options = list(bLengthChange = FALSE,
+                               dom = 'Blfrtip',
+                               buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                               lengthMenu = list(c(10,25,50,-1),
+                                                 c(10,25,50,"All"))))
+}
+```
+
+Iris
+=====================================
+
+Column {data-width=400} {.tabset}
+-----------------------------------------------------------------------
+
+```{r echo=FALSE,message=FALSE,results="asis"}
+for(i in unique(iris$Species)) {
+  cat("  \n###",  i, "  \n")
+  
+  iris %>%
+    filter(Species == i) %>%
+    # knitr::kable() %>%
+    create_dt() %>%
+    htmltools::tagList() %>%
+    print()
+  
+  cat("  \n")
+}
+```
+
+Starwars
+=====================================
+
+Column {data-width=400} {.tabset}
+-----------------------------------------------------------------------
+
+```{r echo=FALSE,message=FALSE,results="asis"}
+for(i in unique(starwars$gender)) {
+  cat("  \n###",  i, "  \n")
+  
+  starwars %>%
+    filter(!is.na(gender)) %>%
+    filter(gender == i) %>%
+    # knitr::kable() %>%
+    create_dt() %>%
+    htmltools::tagList() %>%
+    print()
+  
+  cat("  \n")
+}
+DT::datatable(NULL) # Placeholder needed for code to work
+```
+
+
+
+
+
+
