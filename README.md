@@ -1,5 +1,4 @@
-# loop-code-in-rmd
-Loop code chunks in RMarkdown - a flexdashboard example
+# Loop code chunks in RMarkdown - a flexdashboard example
 
 This is a RMarkdown and flexdashboard example of how to implement code chunk looping. 
 
@@ -13,3 +12,5 @@ You'll need the following packages to run this example:
 - {flexdashboard}
 
 This also assumes that you have access to {rmarkdown} and {pander} via RStudio.
+
+Clone or download this repo to get started. 
